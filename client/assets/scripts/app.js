@@ -4,6 +4,9 @@ const pinId = 16
 global.togglePin = function(pinId) {
   axios.get('/io/toggle/' + pinId).then(function (response) {
     console.log(response)
+    if (!response.data.error) {
+      toggleButton()
+    }
   })
   .catch(function (error) {
     console.log(error)
@@ -13,19 +16,25 @@ global.togglePin = function(pinId) {
 setInterval(function() {
   axios.get('/io/state/' + pinId).then(function (response) {
     console.log(response.data.pin + 'has state: ' + response.data.state)
-    const element = document.getElementById('btn-16')
-
-    if (response.data.state) {
-      element.classList.remove('btn-danger')
-      element.classList.add('btn-success')
-      element.innerHTML = 'ON'
-    } else {
-      element.classList.remove('btn-success')
-      element.classList.add('btn-danger')
-      element.innerHTML = 'OFF'
-    }
+    toggleButton(response.date.state)
   })
   .catch(function (error) {
     console.log(error)
   });
 }, 500)
+
+function toggleButton(on = false) {
+  const element = document.getElementById('btn-16')
+
+  if (on || element.hasClass('btn-danger')) {
+    element.classList.remove('btn-danger')
+    element.classList.add('btn-success')
+    element.innerHTML = 'ON'
+  } else if (element.hasClass('btn-success')) {
+    element.classList.remove('btn-success')
+    element.classList.add('btn-danger')
+    element.innerHTML = 'OFF'
+  } else {
+    console.log('Button does not have any expected class.')
+  }
+}
