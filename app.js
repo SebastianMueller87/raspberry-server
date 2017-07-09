@@ -17,8 +17,8 @@ app.get('/io/:pinId', function (req, res) {
   if (pin === 16) {
     if (!opened) {
       gpio.open(pin, "input", function(err) {
-      console.log('GPIO: ' + pin + ' opened')
-      opened = true
+        console.log('GPIO: ' + pin + ' opened')
+        opened = true
         toggle(pin)
       })
     } else {
@@ -29,6 +29,17 @@ app.get('/io/:pinId', function (req, res) {
     } else {
       res.send('PinId not defined!')
     }
+})
+
+app.get('/io/state/:pinId', function (req, res) {
+  const pin = parseInt(req.params.pinId)
+
+  gpio.open(pin, "input", function(err) {
+    console.log('GPIO: ' + pin + ' opened')
+    getState(pin, function(err, value) {
+      res.send({ pin: pin, state: value })
+    })
+  })
 })
 
 app.listen(dotenv.PORT, function () {
@@ -46,5 +57,11 @@ function toggle(pin) {
           // gpio.close(pin)
       })
     })
+  })
+}
+
+function getState(pin, callback) {
+  gpio.read(pin, function(err, value) {
+    callback(err, value)
   })
 }
