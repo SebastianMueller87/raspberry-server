@@ -16,7 +16,7 @@ global.togglePin = function(pinId) {
 setInterval(function() {
   axios.get('/io/state/' + pinId).then(function (response) {
     console.log(response.data.pin + 'has state: ' + response.data.state)
-    toggleButton(response.date.state)
+    toggleButton(response.data.state)
   })
   .catch(function (error) {
     console.log(error)
