@@ -8,10 +8,12 @@ const availablePins = [ 16 ]
 
 app.use(express.static('public'))
 
+// Default routes
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname + '/public/views/index.html'))
 })
 
+// io routes (gpio)
 app.get('/io/toggle/:pinId', function (req, res) {
   const pin = parseInt(req.params.pinId)
 
@@ -43,6 +45,7 @@ app.get('/io/state/:pinId', function (req, res) {
   })
 })
 
+// start server
 app.listen(dotenv.PORT, function () {
   console.log('Server listening on port ' + dotenv.PORT + '!')
 })
