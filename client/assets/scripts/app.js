@@ -10,6 +10,7 @@ global.togglePin = function(pinId) {
 }
 
 setTimeout(function() {
+  const pinId = 16
   axios.get('/io/state/' + pinId).then(function (response) {
     console.log(response.data.pin + 'has state: ' + response.data.state)
   })
