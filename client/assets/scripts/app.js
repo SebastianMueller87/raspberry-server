@@ -7,7 +7,7 @@ global.togglePin = function(pinId) {
     console.log(response)
     if (!response.data.error) {
       toggleButton()
-      state = parseInt(!state)
+      state = state === 0 ? 1 : 0
     }
   })
   .catch(function (error) {
