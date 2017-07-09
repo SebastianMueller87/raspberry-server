@@ -6,6 +6,11 @@ const clientSrcPath = './client'
 const clientDestPath = './public'
 
 elixir(mix => {
+  mix.sass(
+    clientSrcPath + '/assets/styles/main.scss',
+    clientDestPath + '/css'
+  )
+
   // scripts
   mix.browserify(
     clientSrcPath + '/assets/scripts/app.js',
