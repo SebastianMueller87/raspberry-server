@@ -18,6 +18,8 @@ setInterval(function() {
   axios.get('/io/state/' + pinId).then(function (response) {
     console.log(response.data.pin + 'has state: ' + response.data.state)
     if (state !== response.data.state) {
+      console.log('Current state' + state)
+      console.log('New state' + response.data.state)
       state = response.data.state
       toggleButton()
     }
