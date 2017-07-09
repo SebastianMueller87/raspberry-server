@@ -61,11 +61,8 @@ app.get('/io/state/:pinId', function (req, res) {
     return
   }
 
-  gpio.open(pin, "input", function(err) {
-    console.log('GPIO: ' + pin + ' opened')
-    GpioHelper.getState(pin, function(err, value) {
-      res.send({ pin: pin, state: value })
-    })
+  GpioHelper.getState(pin, function(err, value) {
+    res.send({ pin: pin, state: value })
   })
 })
 

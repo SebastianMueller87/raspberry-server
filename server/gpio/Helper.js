@@ -23,8 +23,11 @@ module.exports = {
   },
 
   getState: function(pin, callback) {
-    gpio.read(pin, function(err, value) {
-      callback(err, value)
+    gpio.open(pin, "input", function(err) {
+      console.log('GPIO: ' + pin + ' opened')
+      gpio.read(pin, function(err, value) {
+        callback(err, value)
+      })
     })
   }
 }
