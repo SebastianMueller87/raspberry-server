@@ -26,11 +26,11 @@ setInterval(function() {
 function toggleButton(on = false) {
   const element = document.getElementById('btn-16')
 
-  if (on || element.hasClass('btn-danger')) {
+  if (on || element.classList.contains('btn-danger')) {
     element.classList.remove('btn-danger')
     element.classList.add('btn-success')
     element.innerHTML = 'ON'
-  } else if (element.hasClass('btn-success')) {
+  } else if (element.classList.contains('btn-success')) {
     element.classList.remove('btn-success')
     element.classList.add('btn-danger')
     element.innerHTML = 'OFF'
