@@ -1,0 +1,10 @@
+html(lang="de-DE")
+  include includes/head.pug
+  body
+    // Main section
+    section
+      h1 GPIO:
+      .row.justify-content-center
+        .col-xs-4.col-xs-offset-4
+          button.btn.btn-primary(onclick="togglePin(16)") Toggle Pin (16)
+    footer
