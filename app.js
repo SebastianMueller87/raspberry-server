@@ -4,6 +4,7 @@ const path = require("path")
 const dotenv = require('dotenv').config({ path: './.env' }).parsed
 let opened = false
 let gpio = null
+const GpioHelper = require('./server/gpio/Helper.js')
 const availablePins = [ 16 ]
 
 try {
@@ -34,10 +35,10 @@ app.get('/io/toggle/:pinId', function (req, res) {
       gpio.open(pin, "input", function(err) {
         console.log('GPIO: ' + pin + ' opened')
         opened = true
-        toggle(pin)
+        GpioHelper.toggle(pin)
       })
     } else {
-      toggle(pin)
+      GpioHelper.toggle(pin)
     }
 
     let msg = 'Pin ' + pin + ' should be toggled'
@@ -62,7 +63,7 @@ app.get('/io/state/:pinId', function (req, res) {
 
   gpio.open(pin, "input", function(err) {
     console.log('GPIO: ' + pin + ' opened')
-    getState(pin, function(err, value) {
+    GpioHelper.getState(pin, function(err, value) {
       res.send({ pin: pin, state: value })
     })
   })
@@ -71,23 +72,3 @@ app.get('/io/state/:pinId', function (req, res) {
 app.listen(dotenv.PORT, function () {
   console.log('Server listening on port ' + dotenv.PORT + '!')
 })
-
-function toggle(pin) {
-  gpio.read(pin, function(err, value) {
-    console.log('GPIO: ' + pin + ' is currently ' + value)
-    gpio.setDirection(pin, 'output', function(err) {
-      console.log('GPIO: ' + pin + ' changed to output')
-      const newValue = value === 0 ? 1 : 0
-      gpio.write(pin, newValue, function() {
-          console.log('GPIO: ' + pin + ' wrote ' + newValue)
-          // gpio.close(pin)
-      })
-    })
-  })
-}
-
-function getState(pin, callback) {
-  gpio.read(pin, function(err, value) {
-    callback(err, value)
-  })
-}
