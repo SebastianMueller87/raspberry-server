@@ -10,6 +10,7 @@ try {
   gpio = require("pi-gpio")
 } catch (e) {
   console.log('Cannot require pi-gpio')
+  console.log(e)
 }
 
 app.use(express.static('public'))
@@ -22,7 +23,9 @@ app.get('/io/toggle/:pinId', function (req, res) {
   const pin = parseInt(req.params.pinId)
 
   if (gpio === null || availablePins.indexOf(pin) === -1) {
-    res.send('Pin ' + pin + ' is not available!')
+    let msg = 'Pin ' + pin + ' is not available!'
+    console.log(msg)
+    res.send({ error: msg })
     return
   }
 
@@ -37,9 +40,13 @@ app.get('/io/toggle/:pinId', function (req, res) {
       toggle(pin)
     }
 
-    res.send('Pin ' + pin + ' should be toggled')
+    let msg = 'Pin ' + pin + ' should be toggled'
+    console.log(msg)
+    res.send({ message: msg })
     } else {
-      res.send('PinId not defined!')
+      let msg = 'PinId not defined'
+      console.log(msg)
+      res.send({ error: msg })
     }
 })
 
@@ -47,7 +54,9 @@ app.get('/io/state/:pinId', function (req, res) {
   const pin = parseInt(req.params.pinId)
 
   if (gpio === null || availablePins.indexOf(pin) === -1) {
-    res.send('Pin ' + pin + ' is not available!')
+    let msg = 'Pin ' + pin + ' is not available!'
+    console.log(msg)
+    res.send({ error: msg })
     return
   }
 
