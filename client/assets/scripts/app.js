@@ -1,5 +1,6 @@
 const axios = require('axios')
 const pinId = 16
+let state = 0
 
 global.togglePin = function(pinId) {
   axios.get('/io/toggle/' + pinId).then(function (response) {
@@ -16,17 +17,20 @@ global.togglePin = function(pinId) {
 setInterval(function() {
   axios.get('/io/state/' + pinId).then(function (response) {
     console.log(response.data.pin + 'has state: ' + response.data.state)
-    toggleButton(response.data.state)
+    if (state !== response.data.state) {
+      state = response.data.state
+      toggleButton()
+    }
   })
   .catch(function (error) {
     console.log(error)
   });
 }, 500)
 
-function toggleButton(on = false) {
+function toggleButton() {
   const element = document.getElementById('btn-16')
 
-  if (on || element.classList.contains('btn-danger')) {
+  if (element.classList.contains('btn-danger')) {
     element.classList.remove('btn-danger')
     element.classList.add('btn-success')
     element.innerHTML = 'ON'
