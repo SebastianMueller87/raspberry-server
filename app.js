@@ -1,9 +1,16 @@
 const express = require('express')
 const app = express()
 const path = require("path")
-const gpio = require("pi-gpio")
 const dotenv = require('dotenv').config({ path: './.env' }).parsed
 let opened = false
+const gpio = null
+const availablePins = [ 16 ]
+
+try {
+  gpio = require("pi-gpio")
+} catch (e) {
+  console.log('Cannot require pi-gpio')
+}
 
 app.use(express.static('public'))
 
@@ -11,8 +18,13 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname + '/public/views/index.html'))
 })
 
-app.get('/io/:pinId', function (req, res) {
+app.get('/io/toggle/:pinId', function (req, res) {
   const pin = parseInt(req.params.pinId)
+
+  if (gpio === null || availablePins.indexOf(pin) === -1) {
+    res.send('Pin ' + pin + ' is not available!')
+    return
+  }
 
   if (pin === 16) {
     if (!opened) {
@@ -33,6 +45,11 @@ app.get('/io/:pinId', function (req, res) {
 
 app.get('/io/state/:pinId', function (req, res) {
   const pin = parseInt(req.params.pinId)
+
+  if (gpio === null || availablePins.indexOf(pin) === -1) {
+    res.send('Pin ' + pin + ' is not available!')
+    return
+  }
 
   gpio.open(pin, "input", function(err) {
     console.log('GPIO: ' + pin + ' opened')
