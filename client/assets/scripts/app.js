@@ -14,9 +14,9 @@ setInterval(function() {
   axios.get('/io/state/' + pinId).then(function (response) {
     console.log(response.data.pin + 'has state: ' + response.data.state)
     if (response.data.state) {
-      document.getElementById('btn-16').classList.add('active')
+      document.getElementById('btn-16').classList.add('active-pin')
     } else {
-      document.getElementById('btn-16').classList.remove('active')
+      document.getElementById('btn-16').classList.remove('active-pin')
     }
   })
   .catch(function (error) {
