@@ -8,13 +8,13 @@ try {
   console.log(e)
 }
 
-module.exports = {
+let self = module.exports = {
   isOpen: function(pin) {
     return openedPins.indexOf(pin) !== -1
   },
 
   open: function(pin, direction, callback) {
-    if (!isOpen(pin)) {
+    if (!self.isOpen(pin)) {
       gpio.open(pin, direction, function(err) {
         openedPins.push(pin)
         callback()
@@ -25,13 +25,13 @@ module.exports = {
   },
 
   close: function(pin) {
-    if (isOpen(pin)) {
+    if (self.isOpen(pin)) {
       gpio.close(pin)
     }
   },
 
   toggle: function(pin, callback) {
-    open(pin, "input", function() {
+    self.open(pin, "input", function() {
       gpio.read(pin, function(err, value) {
         console.log('GPIO: ' + pin + ' is currently ' + value)
         gpio.setDirection(pin, 'output', function(err) {
@@ -47,7 +47,7 @@ module.exports = {
   },
 
   getState: function(pin, callback) {
-    open(pin, "input", function() {
+    self.open(pin, "input", function() {
       gpio.read(pin, function(err, value) {
         callback(err, value)
       })
