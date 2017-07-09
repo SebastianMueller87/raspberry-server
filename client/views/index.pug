@@ -3,9 +3,5 @@ html(lang="de-DE")
   body
     // Main section
     section
-      h1 GPIO:
-      .row.justify-content-center
-        .col-xs-2.col-xs-offset-4
-          h3 Pin (16):
-            button.btn.btn-danger(id="btn-16" onclick="togglePin(16)") Off
+      include includes/gpio.pug
     footer
