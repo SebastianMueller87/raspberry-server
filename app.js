@@ -3,7 +3,7 @@ const app = express()
 const path = require("path")
 const dotenv = require('dotenv').config({ path: './.env' }).parsed
 let opened = false
-const gpio = null
+let gpio = null
 const availablePins = [ 16 ]
 
 try {
