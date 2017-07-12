@@ -15,6 +15,23 @@ global.togglePin = function(pinId) {
   });
 }
 
+global.requestStratfri = function() {
+  var stratfriRoute = document.getElementById('stratfri_route').value.replace(new RegExp(' ', "g"), '')
+  var stratfriQuery = document.getElementById('stratfri_query').value.replace(new RegExp(' ', "g"), '')
+
+  if (stratfriRoute === '' || (stratfriRoute === '' && stratfriQuery === '')) {
+    return
+  }
+
+  axios.get('/stratfri/' + JSON.stringify(stratfriRoute) + '/' + JSON.stringify(stratfriQuery)).then(function (response) {
+    console.log(response)
+  })
+  .catch(function (error) {
+    console.log(error)
+  });
+
+}
+
 setInterval(function() {
   axios.get('/io/state/' + pinId).then(function (response) {
     console.log(response.data.pin + 'has state: ' + response.data.state)
@@ -45,3 +62,4 @@ function toggleButton() {
     console.log('Button does not have any expected class.')
   }
 }
+
