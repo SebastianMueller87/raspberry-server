@@ -23,7 +23,7 @@ global.requestTradfri = function() {
     return
   }
 
-  axios.get('/tradfri/' + JSON.stringify(tradfriRoute) + '/' + JSON.stringify(tradfriQuery)).then(function (response) {
+  axios.get('/tradfri/' + encodeURI(tradfriRoute) + '/' + encodeURI(tradfriQuery)).then(function (response) {
     console.log(response)
   })
   .catch(function (error) {
