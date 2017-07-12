@@ -23,7 +23,7 @@ global.requestStratfri = function() {
     return
   }
 
-  axios.get('/stratfri/' + JSON.stringify(stratfriRoute) + '/' + JSON.stringify(stratfriQuery)).then(function (response) {
+  axios.get('/tradsfri/' + JSON.stringify(stratfriRoute) + '/' + JSON.stringify(stratfriQuery)).then(function (response) {
     console.log(response)
   })
   .catch(function (error) {
