@@ -56,6 +56,7 @@ app.get('/io/state/:pinId', function (req, res) {
 
 // tradsfri routes
 app.get('/tradfri/:route/:query', function (req, res) {
+  console.log(req.params)
   const route = decodeURI(req.params.route)
   const query = req.params.query ? decodeURI(req.params.query) : null
 
