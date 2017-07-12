@@ -53,8 +53,7 @@ app.get('/tradsfri/:route/:query', function (req, res) {
   console.log('got route: ', route)
   console.log('got query: ', query)
   console.log('______')
-
-}
+})
 
 // start server
 app.listen(dotenv.PORT, function () {
