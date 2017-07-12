@@ -1,10 +1,18 @@
+const rootDir = path.resolve(__dirname)
 const express = require('express')
 const app = express()
 const path = require("path")
+const fs = require('fs')
 const dotenv = require('dotenv').config({ path: './.env' }).parsed
 let opened = false
 const GpioHelper = require('./server/gpio/Helper.js')
 const availablePins = [ 16 ]
+
+// load dotenv config
+const dotenvPath = path.resolve(rootDir, '.env')
+if (fs.existsSync(dotenvPath)) {
+  require('dotenv').config({ path: dotenvPath })
+}
 
 app.use(express.static('public'))
 
@@ -52,6 +60,10 @@ app.get('/tradfri/:route/:query', function (req, res) {
 
   console.log('got route: ', route)
   console.log('got query: ', query)
+  console.log('______')
+  console.log(process.env.APP_HOME.TRADFRI_IP)
+  console.log(process.env.TRADFRI_TOKEN)
+  console.log(process.env.TRADFRI_PORT)
   console.log('______')
 })
 
