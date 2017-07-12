@@ -80,8 +80,10 @@ app.get('/tradfri/:route/:query', function (req, res) {
 
   console.log('Execute command', command)
   exec(command, { timeout: 5000 }, (err, stdOut) => {
+    console.log('command was executed')
     if (stdOut) {
       try {
+        console.log(stdOut)
         JSON.parse(stdOut.split('\n')[3])
       } catch (errResponse) {
         reject(`Invalid response: ${errResponse}`)
