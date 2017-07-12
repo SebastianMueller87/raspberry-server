@@ -61,7 +61,7 @@ app.get('/tradfri/:route/:query', function (req, res) {
   console.log('got route: ', route)
   console.log('got query: ', query)
   console.log('______')
-  console.log(process.env.APP_HOME.TRADFRI_IP)
+  console.log(process.env.TRADFRI_IP)
   console.log(process.env.TRADFRI_TOKEN)
   console.log(process.env.TRADFRI_PORT)
   console.log('______')
