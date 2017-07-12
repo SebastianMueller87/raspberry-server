@@ -58,13 +58,38 @@ app.get('/tradfri/:route/:query', function (req, res) {
   const route = req.params.route
   const query = req.params.query ? req.params.query : null
 
-  console.log('got route: ', route)
-  console.log('got query: ', query)
-  console.log('______')
   console.log(process.env.TRADFRI_IP)
   console.log(process.env.TRADFRI_TOKEN)
   console.log(process.env.TRADFRI_PORT)
-  console.log('______')
+
+  let command = ''
+
+  if (query === '') {
+    command = 'coap-client -m get -u "Client_identity" -k "'
+      + process.env.TRADFRI_TOKEN + '" "coaps://' + process.env.TRADFRI_IP + ":"
+      + process.env.TRADFRI_PORT + route
+  } else {
+    command = 'coap-client -m put -u "Client_identity" -k "'
+      + process.env.TRADFRI_TOKEN + '" -e \'' + query + '\''
+      + '" "coaps://' + process.env.TRADFRI_IP + ":"
+      + process.env.TRADFRI_PORT + route
+  }
+
+  console.log('Execute command', command)
+  exec(command, { timeout: 5000 }, (err, stdOut) => {
+    if (stdOut) {
+      try {
+        JSON.parse(stdOut.split('\n')[3])
+      } catch (errResponse) {
+        reject(`Invalid response: ${errResponse}`)
+      }
+    } else {
+      reject('Failed to connect!')
+    }
+  })
+
+
+  return
 })
 
 // start server
