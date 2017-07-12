@@ -1,7 +1,7 @@
 const rootDir = path.resolve(__dirname)
 const express = require('express')
 const app = express()
-const path = require("path")
+const path = require('path')
 const fs = require('fs')
 const dotenv = require('dotenv').config({ path: './.env' }).parsed
 let opened = false
