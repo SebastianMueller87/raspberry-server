@@ -15,15 +15,15 @@ global.togglePin = function(pinId) {
   });
 }
 
-global.requestStratfri = function() {
-  var stratfriRoute = document.getElementById('stratfri_route').value.replace(new RegExp(' ', "g"), '')
-  var stratfriQuery = document.getElementById('stratfri_query').value.replace(new RegExp(' ', "g"), '')
+global.requestTradfri = function() {
+  var tradfriRoute = document.getElementById('tradfri_route').value.replace(new RegExp(' ', "g"), '')
+  var tradfriQuery = document.getElementById('tradfri_query').value.replace(new RegExp(' ', "g"), '')
 
-  if (stratfriRoute === '' || (stratfriRoute === '' && stratfriQuery === '')) {
+  if (tradfriRoute === '' || (tradfriRoute === '' && tradfriQuery === '')) {
     return
   }
 
-  axios.get('/tradsfri/' + JSON.stringify(stratfriRoute) + '/' + JSON.stringify(stratfriQuery)).then(function (response) {
+  axios.get('/tradfri/' + JSON.stringify(tradfriRoute) + '/' + JSON.stringify(tradfriQuery)).then(function (response) {
     console.log(response)
   })
   .catch(function (error) {

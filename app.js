@@ -46,9 +46,9 @@ app.get('/io/state/:pinId', function (req, res) {
 })
 
 // tradsfri routes
-app.get('/tradsfri/:route/:query', function (req, res) {
+app.get('/tradfri/:route/:query', function (req, res) {
   const route = req.params.route
-  const query = req.params.route ? req.params.route : null
+  const query = req.params.query ? req.params.query : null
 
   console.log('got route: ', route)
   console.log('got query: ', query)
