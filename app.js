@@ -7,6 +7,7 @@ const dotenv = require('dotenv').config({ path: './.env' }).parsed
 let opened = false
 const GpioHelper = require('./server/gpio/Helper.js')
 const availablePins = [ 16 ]
+const exec = require('child_process').exec;
 
 // load dotenv config
 const dotenvPath = path.resolve(rootDir, '.env')
@@ -67,12 +68,12 @@ app.get('/tradfri/:route/:query', function (req, res) {
   if (query) {
     command = 'coap-client -m get -u "Client_identity" -k "'
       + process.env.TRADFRI_TOKEN + '" "coaps://' + process.env.TRADFRI_IP + ":"
-      + process.env.TRADFRI_PORT + route
+      + process.env.TRADFRI_PORT + '/' + route
   } else {
     command = 'coap-client -m put -u "Client_identity" -k "'
       + process.env.TRADFRI_TOKEN + '" -e \'' + query + '\''
       + '" "coaps://' + process.env.TRADFRI_IP + ":"
-      + process.env.TRADFRI_PORT + route
+      + process.env.TRADFRI_PORT + '/' + route
   }
 
   console.log('Execute command', command)
