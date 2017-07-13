@@ -84,8 +84,10 @@ app.get('/tradfri/:route/:query', function (req, res) {
     console.log('command was executed')
     if (stdOut) {
       try {
-        console.log(stdOut)
-        JSON.parse(stdOut.split('\n')[3])
+        console.log('stdOut', stdOut)
+        let three = JSON.parse(stdOut.split('\n')[3])
+        console.log(three)
+        res.send("Successfull")
       } catch (errResponse) {
         // reject(`Invalid response: ${errResponse}`)
       }
