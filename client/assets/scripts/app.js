@@ -24,7 +24,7 @@ global.requestTradfri = function() {
   }
 
   // Encode URI mit den / funktioniert nicht, da dann die route nicht mehr stimmt!
-  axios.get('/tradfri/' + encodeURI(tradfriRoute) + '/' + encodeURI(tradfriQuery)).then(function (response) {
+  axios.get('/tradfri/' + encodeURIComponent(tradfriRoute) + '/' + encodeURIComponent(tradfriQuery)).then(function (response) {
     console.log(response)
   })
   .catch(function (error) {
