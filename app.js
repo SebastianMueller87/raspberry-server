@@ -75,7 +75,7 @@ app.get('/tradfri/:route/:query', function (req, res) {
   } else {
     command = 'coap-client -m put -u "Client_identity" -k "'
       + process.env.TRADFRI_TOKEN + '" -e \'' + query + '\''
-      + '" "coaps://' + process.env.TRADFRI_IP + ":"
+      + ' "coaps://' + process.env.TRADFRI_IP + ":"
       + process.env.TRADFRI_PORT + '/' + route + '"'
   }
 
