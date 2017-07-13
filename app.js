@@ -87,7 +87,7 @@ app.get('/tradfri/:route/:query', function (req, res) {
         console.log(stdOut)
         JSON.parse(stdOut.split('\n')[3])
       } catch (errResponse) {
-        reject(`Invalid response: ${errResponse}`)
+        // reject(`Invalid response: ${errResponse}`)
       }
     } else {
       // reject('Failed to connect!')
