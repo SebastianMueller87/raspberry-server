@@ -90,7 +90,7 @@ app.get('/tradfri/:route/:query', function (req, res) {
         reject(`Invalid response: ${errResponse}`)
       }
     } else {
-      reject('Failed to connect!')
+      // reject('Failed to connect!')
     }
   })
 
